@@ -23,19 +23,20 @@ def checkPoolStatus(pool_name):
     command = "zpool list -o health " + pool_name
 
     #Test to make sure command runs successfully. Should only fail if pool name is incorrect.
-    #try:
-        #process = subprocess.check_call([command], stdout=subprocess.PIPE, shell=True)
-    #except subprocess.CalledProcessError:
-        #return "Invalid command. \"" + command + "\". Was name of pool supplied incorrectly?"
+    try:
+        process = subprocess.check_call([command], stdout=subprocess.PIPE, shell=True)
+    except subprocess.CalledProcessError:
+        return "Invalid command. \"" + command + "\". Was name of pool supplied incorrectly?"
 
     #Uses sample output for testing
-    f = open("cmd_output.txt", 'r')
+    #f = open("cmd_output.txt", 'r')
 
     #Converts command output to String
-    #output = str(process.communicate())
+    output = str(process.communicate())
 
-    output = f.read()
-    f.close()
+    #Sample output for testing
+    #output = f.read()
+    #f.close()
 
 
     #Successful output will look like: HEALTH ONLINE
@@ -61,19 +62,22 @@ def checkDriveSpares(pool_name):
     # return "Invalid command. \"" + command + "\". Was name of pool supplied incorrectly?"
 
     # Uses sample output for testing
-    f = open("cmd_output.txt", 'r')
+    #f = open("cmd_output.txt", 'r')
 
     # Converts command output to String
-    # output = str(process.communicate())
+    output = str(process.communicate())
 
-    output = f.read()
-    f.close()
+    #sample output for testing
+    #output = f.read()
+    #f.close()
 
     spares = findWord("AVAIL", output)
 
     return spares
 
 def getFailedDriveId(pool_name):
+    #TODO
+    pass
 
 
 
@@ -88,10 +92,10 @@ while True:
         sleep(60)
     else:
         #get a list of pools
-        #pools = subprocess.Popen(["zpool list"], stdout=subprocess.PIPE, shell=True)
-        #pools = str(pools.communicate())
+        pools = subprocess.Popen(["zpool list"], stdout=subprocess.PIPE, shell=True)
+        pools = str(pools.communicate())
 
-        f = open("zpool list.txt", 'r')
+        #f = open("zpool list.txt", 'r')
 
         pools = []
 
